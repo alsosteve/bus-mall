@@ -25,15 +25,15 @@ const items2PElem = document.getElementById('items_2_p');
 const items3ImgElem = document.getElementById('items_3_img');
 const items3PElem = document.getElementById('items_3_p');
 
-const bSectionElem = document.getElementById('b');
-const cSectionElem = document.getElementById('c');
-const dSectionElem = document.getElementById('d');
+const bSectionElem = document.getElementById('B');
+const cSectionElem = document.getElementById('C');
+const dSectionElem = document.getElementById('D');
 
 let items1 = null;
 let items2 = null;
 let items3 = null;
   // counter
-let rounds = 10;
+let rounds = 25;
 
 // ------------------------- Constructor Function ------------------------ //
   // I think this makes objects named items
@@ -48,7 +48,7 @@ function Items(name, image) {
   // I'm pretty sure the items objects are stored in this array
 Items.allItems = [];
   // A prototype that renders my items
-Items.prototype.renderSingleItem = function(img,p) {
+Items.prototype.renderSingleItems = function(img,p) {
   img.src = this.image;
   p.textContent = this.name;
   this.timesShown++;
@@ -56,7 +56,68 @@ Items.prototype.renderSingleItem = function(img,p) {
 
 // ------------------------- Global Functions ------------------------ //
 
-function
+function randomItems () {
+  let items1Index = Math.floor(Math.random() * Items.allItems.length);
+
+  items1 = Items.allItems[items1Index];
+
+  let items2Index;
+  while (items2Index === undefined || items2Index === items1Index) {
+    items2Index = Math.floor(Math.random() * Items.allItems.length);
+  }
+  items2 = Items.allItems[items2Index];
+
+  let items3Index;
+  while (items3Index === undefined || items3Index === items1Index || items3Index === items2Index) {
+    items3Index = Math.floor(Math.random() * Items.allItems.length);
+  }
+  items3 = Items.allItems[items3Index];
+  
+  renderItems(items1, items2, items3);
+}
+
+function renderItems(items1, items2, items3) {
+  items1.renderSingleItems(items1ImgElem, items1PElem);
+  items2.renderSingleItems(items2ImgElem, items2PElem);
+  items3.renderSingleItems(items3ImgElem, items3PElem);
+}
+
+function clickHandler(event) {
+  console.log(event.target);
+
+  if (event.target === items1ImgElem || event.target === items2ImgElem || event.target === items3ImgElem) {
+    rounds--;
+
+    if (event.target === items1ImgElem) {
+      items1.votes++;
+    } if (event.target === items2ImgElem) {
+      items2.votes++;
+    } else {
+      items3.votes++;
+    }
+    if (rounds === 0) {
+      bSectionElem.removeEventListener('click', clickHandler);
+      cSectionElem.removeEventListener('click', clickHandler);
+      dSectionElem.removeEventListener('click', clickHandler);
+
+      renderResults();
+    }
+
+    randomItems();
+  }
+}
+
+function renderResults() {
+  const ulElem = document.getElementById('items-clicks');
+  ulElem.innerHTML = '';
+  for (let items of Items.allItems) {
+    const liElem = document.createElement('li');
+    liElem.textContent = `${items.name}: ${items.votes}`;
+    ulElem.appendChild(liElem);
+     
+  }
+}
+
 
 // ------------------------- Listeners ------------------------ //
 
@@ -80,10 +141,10 @@ Items.allItems.push(new Items('Pen', './img/pen.jpeg'));
 Items.allItems.push(new Items('Pet Sweep', './img/pet-sweep.jpeg'));
 Items.allItems.push(new Items('Scissors', './img/scissors.jpeg'));
 Items.allItems.push(new Items('Shark', './img/shark.jpeg'));
-Items.allItems.push(new Items('Sweep', './img/sweep.jpeg'));
+Items.allItems.push(new Items('Sweep', './img/sweep.png'));
 Items.allItems.push(new Items('Tauntaun', './img/tauntaun.jpeg'));
 Items.allItems.push(new Items('Unicorn', './img/unicorn.jpeg'));
 Items.allItems.push(new Items('Water Can', './img/water-can.jpeg'));
 Items.allItems.push(new Items('Wine Glass', './img/wine-glass.jpeg'));
 
-//randomItems();
+randomItems();
