@@ -25,3 +25,11 @@
   background-color: rgb(42, 54, 165);
   
 }
+
+header {
+  background-color: aqua;
+}
+
+#banner {
+  background-color: rgba(255, 0, 0, 0.178);
+}

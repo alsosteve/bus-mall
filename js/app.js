@@ -56,7 +56,44 @@ Items.prototype.renderSingleItems = function(img,p) {
 
 // ------------------------- Global Functions ------------------------ //
 
+function randomItems() {
+  const unavailableItems = [items1, items2, items3];
+
+  while (unavailableItems.includes(items1)) {
+    // get a new items1
+    let items1Index = Math.floor(Math.random() * Items.allItems.length);
+    items1 = Items.allItems[items1Index];
+  }
+
+  // put the new items1 into unavailable items
+  unavailableItems.push(items1);
+ 
+
+  // items2 = Items.allItems[items1Index];
+  while (unavailableItems.includes(items2)) {
+    // get a new items2
+    let items2Index = Math.floor(Math.random() * Items.allItems.length);
+    items2 = Items.allItems[items2Index];
+  }
+
+  // put the new items2 into unavailable items
+  unavailableItems.push(items2);
+
+  while (unavailableItems.includes(items3)) {
+    // get a new items3
+    let items3Index = Math.floor(Math.random() * Items.allItems.length);
+    items3 = Items.allItems[items3Index];
+  }
+
+  // render the itemss
+  renderItems(items1, items2, items3);
+}
+
+/*
 function randomItems () {
+
+  const unavailableItems = [items1, items2, items3];
+
   let items1Index = Math.floor(Math.random() * Items.allItems.length);
 
   items1 = Items.allItems[items1Index];
@@ -75,6 +112,7 @@ function randomItems () {
   
   renderItems(items1, items2, items3);
 }
+*/
 
 function renderItems(items1, items2, items3) {
   items1.renderSingleItems(items1ImgElem, items1PElem);
@@ -90,7 +128,7 @@ function clickHandler(event) {
 
     if (event.target === items1ImgElem) {
       items1.votes++;
-    } if (event.target === items2ImgElem) {
+    } else if (event.target === items2ImgElem) {
       items2.votes++;
     } else {
       items3.votes++;
@@ -101,18 +139,70 @@ function clickHandler(event) {
       dSectionElem.removeEventListener('click', clickHandler);
 
       renderResults();
+      renderChart();
     }
 
     randomItems();
   }
 }
 
+function renderChart() {
+
+  const itemsData = [];
+  const itemsLabels = [];
+
+  for (let items of Items.allItems) {
+    itemsData.push(items.votes);
+    itemsLabels.push(items.name);
+  }
+
+  var ctx = document.getElementById('itemsChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: itemsLabels,
+          datasets: [{
+              label: 'Item Votes',
+              data: itemsData,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+}
+
+
+
+
+
 function renderResults() {
   const ulElem = document.getElementById('items-clicks');
   ulElem.innerHTML = '';
   for (let items of Items.allItems) {
     const liElem = document.createElement('li');
-    liElem.textContent = `${items.name}: ${items.votes}`;
+    liElem.textContent = `${items.name}: ${items.votes} votes out of ${items.timesShown} shown`;
     ulElem.appendChild(liElem);
      
   }
