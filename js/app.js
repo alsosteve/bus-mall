@@ -16,6 +16,20 @@ click handler
 logic to update global counter
 */
 
+
+// ------------------------ Header ------------------------ //
+var nav = document.querySelector('.main-nav');
+var position = 0;
+
+window.addEventListener('scroll', function(){
+  if(window.pageYOffset > 100) {
+    nav.classList += ' small';
+  } else {
+    nav.classList = 'main-nav';
+  }
+});
+
+
 // ------------------------ Global Variables ------------------------ //
 
 const items1ImgElem = document.getElementById('items_1_img');
@@ -33,7 +47,7 @@ let items1 = null;
 let items2 = null;
 let items3 = null;
   // counter
-let rounds = 25;
+let rounds = 1;
 
 // ------------------------- Constructor Function ------------------------ //
   // I think this makes objects named items
