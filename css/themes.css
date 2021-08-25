@@ -2,22 +2,9 @@
   background-color: bisque;
 }
 
-#B {
-  background-color: rgb(221, 187, 125);
-}
 
-#C {
-  background-color: orange;
-
-}
-
-#D {
-  background-color: rgb(255, 0, 212);
-  
-}
 
 #E {
-  background-color: red;
   
 }
 
@@ -35,3 +22,9 @@ header {
   width: ;
 }
 */
+
+.main-nav {
+  border-bottom: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.438);
+}
+
