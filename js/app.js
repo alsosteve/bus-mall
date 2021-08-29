@@ -73,7 +73,7 @@ Items.prototype.renderSingleItems = function(img,p) {
 // ------------------------- Global Functions ------------------------ //
 // retrieves from storage
 function getResultsFromStorage() {
-  const stringifiedResults = localStorage.getItem('Items');
+  const stringifiedResults = localStorage.getItems('Items');
   if(stringifiedResults){
     const parsedItems = JSON.parse(stringifiedResults);
     console.log(parsedItems);
@@ -88,7 +88,7 @@ function getResultsFromStorage() {
 // stores results
 function storeResults() {
   const stringifiedResults = JSON.stringify(Items.allItems);
-  localStorage.setItem('Items', stringifiedResults);
+  localStorage.setItems('Items', stringifiedResults);
 }
 
 
