@@ -58,6 +58,8 @@ function Items(name, image) {
   this.votes = 0;
 }
 
+Items.allItems = [];
+
 // ------------------------- Prototype things ------------------------ //
   // I'm pretty sure the items objects are stored in this array
 Items.allItems = [];
@@ -69,6 +71,26 @@ Items.prototype.renderSingleItems = function(img,p) {
 }
 
 // ------------------------- Global Functions ------------------------ //
+// retrieves from storage
+function getResultsFromStorage() {
+  const stringifiedResults = localStorage.getItem('Items');
+  if(stringifiedResults){
+    const parsedItems = JSON.parse(stringifiedResults);
+    console.log(parsedItems);
+
+    for(let Items of parsedItems){
+      const myItems = new Items(Items.name, Items.image, Items.votes, Items.timesShown);
+      Items.allItems.push(myItems);
+    }
+  }
+}
+
+// stores results
+function storeResults() {
+  const stringifiedResults = JSON.stringify(Items.allItems);
+  localStorage.setItem('items', stringifiedResults);
+}
+
 
 function randomItems() {
   const unavailableItems = [items1, items2, items3];
@@ -154,6 +176,7 @@ function clickHandler(event) {
 
       renderResults();
       renderChart();
+      storeResults();
     }
 
     randomItems();
@@ -231,24 +254,30 @@ dSectionElem.addEventListener('click', clickHandler);
 
 // ------------------------- Call Functions -------------------------- //
   // This is how you make the items objects I think
-Items.allItems.push(new Items('Bag', './img/bag.jpeg'));
-Items.allItems.push(new Items('Banana', './img/banana.jpeg'));
-Items.allItems.push(new Items('Bathroom', './img/bathroom.jpeg'));
-Items.allItems.push(new Items('Boots', './img/boots.jpeg'));
-Items.allItems.push(new Items('Breakfast', './img/breakfast.jpeg'));
-Items.allItems.push(new Items('Bubblegum', './img/bubblegum.jpeg'));
-Items.allItems.push(new Items('Chair', './img/chair.jpeg'));
-Items.allItems.push(new Items('Cthulhu', './img/cthulhu.jpeg'));
-Items.allItems.push(new Items('Dog Duck', './img/dog-duck.jpeg'));
-Items.allItems.push(new Items('Dragon', './img/dragon.jpeg'));
-Items.allItems.push(new Items('Pen', './img/pen.jpeg'));
-Items.allItems.push(new Items('Pet Sweep', './img/pet-sweep.jpeg'));
-Items.allItems.push(new Items('Scissors', './img/scissors.jpeg'));
-Items.allItems.push(new Items('Shark', './img/shark.jpeg'));
-Items.allItems.push(new Items('Sweep', './img/sweep.png'));
-Items.allItems.push(new Items('Tauntaun', './img/tauntaun.jpeg'));
-Items.allItems.push(new Items('Unicorn', './img/unicorn.jpeg'));
-Items.allItems.push(new Items('Water Can', './img/water-can.jpeg'));
-Items.allItems.push(new Items('Wine Glass', './img/wine-glass.jpeg'));
+  if(localStorage.getItem('Items')){
+    getResultsFromStorage();
+  }
+  else{
+
+  Items.allItems.push(new Items('Bag', './img/bag.jpeg'));
+  Items.allItems.push(new Items('Banana', './img/banana.jpeg'));
+  Items.allItems.push(new Items('Bathroom', './img/bathroom.jpeg'));
+  Items.allItems.push(new Items('Boots', './img/boots.jpeg'));
+  Items.allItems.push(new Items('Breakfast', './img/breakfast.jpeg'));
+  Items.allItems.push(new Items('Bubblegum', './img/bubblegum.jpeg'));
+  Items.allItems.push(new Items('Chair', './img/chair.jpeg'));
+  Items.allItems.push(new Items('Cthulhu', './img/cthulhu.jpeg'));
+  Items.allItems.push(new Items('Dog Duck', './img/dog-duck.jpeg'));
+  Items.allItems.push(new Items('Dragon', './img/dragon.jpeg'));
+  Items.allItems.push(new Items('Pen', './img/pen.jpeg'));
+  Items.allItems.push(new Items('Pet Sweep', './img/pet-sweep.jpeg'));
+  Items.allItems.push(new Items('Scissors', './img/scissors.jpeg'));
+  Items.allItems.push(new Items('Shark', './img/shark.jpeg'));
+  Items.allItems.push(new Items('Sweep', './img/sweep.png'));
+  Items.allItems.push(new Items('Tauntaun', './img/tauntaun.jpeg'));
+  Items.allItems.push(new Items('Unicorn', './img/unicorn.jpeg'));
+  Items.allItems.push(new Items('Water Can', './img/water-can.jpeg'));
+  Items.allItems.push(new Items('Wine Glass', './img/wine-glass.jpeg'));
+  }
 
 randomItems();
