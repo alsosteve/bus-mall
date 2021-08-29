@@ -47,7 +47,7 @@ let items1 = null;
 let items2 = null;
 let items3 = null;
   // counter
-let rounds = 1;
+let rounds = 5;
 
 // ------------------------- Constructor Function ------------------------ //
   // I think this makes objects named items
