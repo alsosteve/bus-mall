@@ -51,11 +51,11 @@ let rounds = 1;
 
 // ------------------------- Constructor Function ------------------------ //
   // I think this makes objects named items
-function Items(name, image) {
+function Items(name, image, timesShown = 0, votes = 0) {
   this.name = name;
   this.image = image;
-  this.timesShown = 0;
-  this.votes = 0;
+  this.timesShown = timesShown;
+  this.votes = votes;
 }
 
 Items.allItems = [];
