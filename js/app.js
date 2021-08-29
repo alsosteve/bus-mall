@@ -73,13 +73,13 @@ Items.prototype.renderSingleItems = function(img,p) {
 // ------------------------- Global Functions ------------------------ //
 // retrieves from storage
 function getResultsFromStorage() {
-  const stringifiedResults = localStorage.getItems('Items');
+  const stringifiedResults = localStorage.getItem('Items');
   if(stringifiedResults){
     const parsedItems = JSON.parse(stringifiedResults);
     console.log(parsedItems);
 
-    for(let Items of parsedItems){
-      const myItems = new Items(Items.name, Items.image, Items.votes, Items.timesShown);
+    for(let items of parsedItems){
+      const myItems = new Items(items.name, items.image, items.votes, items.timesShown);
       Items.allItems.push(myItems);
     }
   }
@@ -88,7 +88,7 @@ function getResultsFromStorage() {
 // stores results
 function storeResults() {
   const stringifiedResults = JSON.stringify(Items.allItems);
-  localStorage.setItems('Items', stringifiedResults);
+  localStorage.setItem('Items', stringifiedResults);
 }
 
 
@@ -281,3 +281,4 @@ dSectionElem.addEventListener('click', clickHandler);
   }
 
 randomItems();
+
