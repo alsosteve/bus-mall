@@ -84,7 +84,7 @@ function getResultsFromStorage() {
     console.log(parsedItems);
 
     for(let items of parsedItems){
-      const myItems = new Items(items.name, items.image, items.votes, items.timesShown);
+      const myItems = new Items(items.name, items.image, items.timesShown, items.votes);
       Items.allItems.push(myItems);
     }
   }
