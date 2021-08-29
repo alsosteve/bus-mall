@@ -54,7 +54,7 @@ let rounds = 5;
 function Items(name, image, timesShown, votes) {
   this.name = name;
   this.image = image;
-  if (timesShown === null) {
+  if (timesShown === NaN) {
     this.timesShown = 0;
     this.votes = 0;
   } else {
