@@ -88,7 +88,7 @@ function getResultsFromStorage() {
 // stores results
 function storeResults() {
   const stringifiedResults = JSON.stringify(Items.allItems);
-  localStorage.setItem('items', stringifiedResults);
+  localStorage.setItem('Items', stringifiedResults);
 }
 
 
