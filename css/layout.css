@@ -40,7 +40,7 @@ header {
 
 main {
   display: grid;
-  grid-template-rows: 340px 120px 200px;
+  grid-template-rows: 340px 120px 500px;
   grid-template-columns: 300px 300px 300px 300px;
   justify-content: center;
   padding-top: 190px;
